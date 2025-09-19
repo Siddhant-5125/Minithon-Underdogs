@@ -17,8 +17,6 @@ function MapComponent() {
   const [mapReady, setMapReady] = useState(false);
   const mapReadyRef = useRef(false);
 
-  // Hardcoded API key for testing
-  const GOOGLE_MAPS_API_KEY = "AIzaSyAwQhn2JegBPy28brhqfPL-LQ86blk3B2s";
   
   // Libraries needed for Google Maps API
   const libraries = ['places'];
