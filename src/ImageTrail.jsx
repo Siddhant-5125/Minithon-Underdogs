@@ -49,8 +49,9 @@ export default function ImageTrail({ items = [], variant = 1 }) {
     let imgPosition = 0;
     let zIndexVal = 1;
     let activeImagesCount = 0;
+    const maxActiveImages = 3; // Limit the number of active images at one time
     let isIdle = true;
-    const threshold = 80;
+    const threshold = 80; // Further increased threshold for less frequent image spawning
 
     let mousePos = { x: 0, y: 0 };
     let lastMousePos = { x: 0, y: 0 };
@@ -81,7 +82,7 @@ export default function ImageTrail({ items = [], variant = 1 }) {
       cacheMousePos.x = lerp(cacheMousePos.x, mousePos.x, 0.1);
       cacheMousePos.y = lerp(cacheMousePos.y, mousePos.y, 0.1);
 
-      if (distance > threshold) {
+      if (distance > threshold && activeImagesCount < maxActiveImages) {
         showNextImage();
         lastMousePos = { ...mousePos };
       }
@@ -158,18 +159,17 @@ export default function ImageTrail({ items = [], variant = 1 }) {
   }, [items, variant]);
 
   return (
-    <div style={{ backgroundColor: "white", width: "100%", height: "100vh" }}>
+    <div style={{ position: 'relative', width: "100%", height: "100%", overflow: 'hidden' }}>
       <div
         ref={containerRef}
         style={{
           position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          width: "500px",
-          height: "500px",
-          backgroundColor: "blue",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
           overflow: "hidden",
+          pointerEvents: 'auto', // Enable pointer events for the container
         }}
       >
         <style>{`
@@ -177,8 +177,8 @@ export default function ImageTrail({ items = [], variant = 1 }) {
             position: absolute;
             top: 0;
             left: 0;
-            width: 200px;
-            height: 200px;
+            width: 120px;
+            height: 120px;
             pointer-events: none;
             opacity: 0;
             will-change: transform, opacity;
@@ -189,8 +189,9 @@ export default function ImageTrail({ items = [], variant = 1 }) {
             height: 100%;
             background-size: cover;
             background-position: center;
-            border-radius: 8px;
+            border-radius: 12px;
             overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
           }
         `}</style>
 
