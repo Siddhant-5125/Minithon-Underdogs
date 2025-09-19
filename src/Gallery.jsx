@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { X, ChevronLeft, ChevronRight, Eye } from 'lucide-react';
 
 const Gallery = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isAutoPlay, setIsAutoPlay] = useState(true);
 
   const galleryImages = [
     {
@@ -48,21 +49,39 @@ const Gallery = () => {
     }
   ];
 
+  // Auto-play functionality for lightbox
+  useEffect(() => {
+    if (selectedImage !== null && isAutoPlay) {
+      const interval = setInterval(() => {
+        setCurrentIndex((prev) => (prev + 1) % galleryImages.length);
+      }, 3000); // Change image every 3 seconds
+      return () => clearInterval(interval);
+    }
+  }, [selectedImage, isAutoPlay, galleryImages.length]);
+
   const openLightbox = (index) => {
     setSelectedImage(index);
     setCurrentIndex(index);
+    setIsAutoPlay(true); // Start auto-play when lightbox opens
   };
 
   const closeLightbox = () => {
     setSelectedImage(null);
+    setIsAutoPlay(false); // Stop auto-play when lightbox closes
   };
 
   const nextImage = () => {
     setCurrentIndex((prev) => (prev + 1) % galleryImages.length);
+    setIsAutoPlay(false); // Pause auto-play when user manually navigates
   };
 
   const prevImage = () => {
     setCurrentIndex((prev) => (prev - 1 + galleryImages.length) % galleryImages.length);
+    setIsAutoPlay(false); // Pause auto-play when user manually navigates
+  };
+
+  const toggleAutoPlay = () => {
+    setIsAutoPlay(!isAutoPlay);
   };
 
   return (
@@ -154,9 +173,17 @@ const Gallery = () => {
                 </div>
               </div>
 
-              {/* Image counter */}
-              <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-white bg-opacity-20 backdrop-blur-sm text-white px-4 py-2 rounded-full">
-                {currentIndex + 1} / {galleryImages.length}
+              {/* Image counter and controls */}
+              <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex items-center space-x-4">
+                <div className="bg-white bg-opacity-20 backdrop-blur-sm text-white px-4 py-2 rounded-full">
+                  {currentIndex + 1} / {galleryImages.length}
+                </div>
+                <button
+                  onClick={toggleAutoPlay}
+                  className="bg-white bg-opacity-20 backdrop-blur-sm hover:bg-opacity-30 text-white px-4 py-2 rounded-full transition-all"
+                >
+                  {isAutoPlay ? 'Pause' : 'Play'}
+                </button>
               </div>
             </div>
           </div>
