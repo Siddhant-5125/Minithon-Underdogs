@@ -1,11 +1,11 @@
 export const rooms = [
   {
     id: 1,
-    name: "Grand Ballroom",
+    name: "Hotel Dormitory",
     type: "Event Hall",
     capacity: "Up to 300 guests",
     price: "$2,500/day",
-    image: "https://images.pexels.com/photos/1058277/pexels-photo-1058277.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    image: "/src/images/taj.jpeg",
     description: "Our flagship venue featuring crystal chandeliers, marble floors, and floor-to-ceiling windows. Perfect for weddings, galas, and corporate events.",
     features: [
       "Crystal Chandeliers",
@@ -26,7 +26,7 @@ export const rooms = [
   },
   {
     id: 2,
-    name: "Executive Boardroom",
+    name: "Oberoi Dormitory",
     type: "Meeting Room",
     capacity: "Up to 24 guests",
     price: "$500/day",
@@ -51,11 +51,11 @@ export const rooms = [
   },
   {
     id: 3,
-    name: "Garden Pavilion",
+    name: "Railway Dormitory",
     type: "Outdoor Venue",
     capacity: "Up to 150 guests",
     price: "$1,800/day",
-    image: "https://images.pexels.com/photos/1024248/pexels-photo-1024248.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    image: "/src/images/railway.jpeg",
     description: "Beautiful outdoor pavilion surrounded by landscaped gardens and water features. Perfect for ceremonies, cocktail receptions, and outdoor celebrations.",
     features: [
       "Landscaped Gardens",
@@ -101,7 +101,7 @@ export const rooms = [
   },
   {
     id: 5,
-    name: "Conference Center",
+    name: "Andheri Dormitory",
     type: "Meeting Room",
     capacity: "Up to 100 guests",
     price: "$1,200/day",

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Users, DollarSign, MapPin, Star, ChevronRight } from 'lucide-react';
 import { rooms } from '../data/rooms';
+import { getImageTrailImages } from '../data/imageTrailConfig';
 import ImageTrail from './ImageTrail';
 
 const RoomListing = ({ onBookRoom }) => {
@@ -62,23 +63,23 @@ const RoomListing = ({ onBookRoom }) => {
   return (
     <section id="rooms" className="py-20 bg-gray-50">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-slate-800 mb-6">
+        <div className="text-center mb-12 sm:mb-16">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-slate-800 mb-4 sm:mb-6">
             Our Premium Venues
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto px-4 sm:px-0">
             Discover our collection of thoughtfully designed spaces, each offering unique features 
             and amenities to make your event extraordinary.
           </p>
         </div>
 
         {/* Filter Buttons */}
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
+        <div className="flex flex-wrap justify-center gap-2 sm:gap-4 mb-8 sm:mb-12 px-4 sm:px-0">
           {['all', 'Event Hall', 'Meeting Room', 'Outdoor Venue', 'Dining Space'].map((category) => (
             <button
               key={category}
               onClick={() => setFilter(category)}
-              className={`px-6 py-2 rounded-full font-medium transition-all duration-300 ${
+              className={`px-3 sm:px-6 py-2 rounded-full font-medium text-sm sm:text-base transition-all duration-300 ${
                 filter === category
                   ? 'bg-amber-500 text-white shadow-lg'
                   : 'bg-white text-gray-600 hover:bg-amber-50 hover:text-amber-600'
@@ -89,7 +90,7 @@ const RoomListing = ({ onBookRoom }) => {
           ))}
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {filteredRooms.map((room, index) => (
             <div
               key={room.id}
@@ -105,15 +106,15 @@ const RoomListing = ({ onBookRoom }) => {
                 <img
                   src={room.image}
                   alt={room.name}
-                  className="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
+                  className="w-full h-48 sm:h-56 md:h-64 object-cover transition-transform duration-300 group-hover:scale-110"
                 />
-                <div className="absolute top-4 left-4 bg-white bg-opacity-90 backdrop-blur-sm px-3 py-1 rounded-full">
-                  <span className="text-sm font-medium text-slate-700">{room.type}</span>
+                <div className="absolute top-2 sm:top-4 left-2 sm:left-4 bg-white bg-opacity-90 backdrop-blur-sm px-2 sm:px-3 py-1 rounded-full">
+                  <span className="text-xs sm:text-sm font-medium text-slate-700">{room.type}</span>
                 </div>
-                <div className="absolute top-4 right-4 bg-amber-500 text-white px-3 py-1 rounded-full">
+                <div className="absolute top-2 sm:top-4 right-2 sm:right-4 bg-amber-500 text-white px-2 sm:px-3 py-1 rounded-full">
                   <div className="flex items-center space-x-1">
-                    <Star size={14} className="fill-white" />
-                    <span className="text-sm font-medium">5.0</span>
+                    <Star size={12} className="sm:w-3.5 sm:h-3.5 fill-white" />
+                    <span className="text-xs sm:text-sm font-medium">5.0</span>
                   </div>
                 </div>
 
@@ -128,11 +129,7 @@ const RoomListing = ({ onBookRoom }) => {
                     <ImageTrail 
                       items={[
                         room.image,
-                        'https://images.pexels.com/photos/1058277/pexels-photo-1058277.jpeg?auto=compress&cs=tinysrgb&w=400',
-                        'https://images.pexels.com/photos/416320/pexels-photo-416320.jpeg?auto=compress&cs=tinysrgb&w=400',
-                        'https://images.pexels.com/photos/1024248/pexels-photo-1024248.jpeg?auto=compress&cs=tinysrgb&w=400',
-                        'https://images.pexels.com/photos/67468/pexels-photo-67468.jpeg?auto=compress&cs=tinysrgb&w=400',
-                        'https://images.pexels.com/photos/2747449/pexels-photo-2747449.jpeg?auto=compress&cs=tinysrgb&w=400'
+                        ...getImageTrailImages(room.name, room.type)
                       ]}
                       variant={1}
                     />
@@ -140,24 +137,24 @@ const RoomListing = ({ onBookRoom }) => {
                 )}
               </div>
 
-              <div className="p-6">
-                <h3 className="text-2xl font-bold text-slate-800 mb-2">{room.name}</h3>
-                <p className="text-gray-600 mb-4 line-clamp-2">{room.description}</p>
+              <div className="p-4 sm:p-6">
+                <h3 className="text-xl sm:text-2xl font-bold text-slate-800 mb-2">{room.name}</h3>
+                <p className="text-gray-600 mb-3 sm:mb-4 line-clamp-2 text-sm sm:text-base">{room.description}</p>
 
-                <div className="space-y-3 mb-6">
+                <div className="space-y-2 sm:space-y-3 mb-4 sm:mb-6">
                   <div className="flex items-center text-gray-600">
-                    <Users size={18} className="mr-2 text-amber-500" />
-                    <span>{room.capacity}</span>
+                    <Users size={16} className="sm:w-4.5 sm:h-4.5 mr-2 text-amber-500" />
+                    <span className="text-sm sm:text-base">{room.capacity}</span>
                   </div>
                   <div className="flex items-center text-gray-600">
-                    <DollarSign size={18} className="mr-2 text-amber-500" />
-                    <span className="font-semibold text-slate-800">{room.price}</span>
+                    <DollarSign size={16} className="sm:w-4.5 sm:h-4.5 mr-2 text-amber-500" />
+                    <span className="font-semibold text-slate-800 text-sm sm:text-base">{room.price}</span>
                   </div>
                 </div>
 
-                <div className="mb-6">
-                  <h4 className="font-semibold text-slate-700 mb-2">Key Features:</h4>
-                  <div className="flex flex-wrap gap-2">
+                <div className="mb-4 sm:mb-6">
+                  <h4 className="font-semibold text-slate-700 mb-2 text-sm sm:text-base">Key Features:</h4>
+                  <div className="flex flex-wrap gap-1 sm:gap-2">
                     {room.features.slice(0, 3).map((feature) => (
                       <span
                         key={feature}
@@ -169,16 +166,16 @@ const RoomListing = ({ onBookRoom }) => {
                   </div>
                 </div>
 
-                <div className="flex gap-3">
+                <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
                   <button
                     onClick={() => setSelectedRoom(room)}
-                    className="flex-1 border-2 border-amber-500 text-amber-600 hover:bg-amber-500 hover:text-white px-4 py-2 rounded-lg font-medium transition-colors"
+                    className="flex-1 border-2 border-amber-500 text-amber-600 hover:bg-amber-500 hover:text-white px-3 sm:px-4 py-2 rounded-lg font-medium transition-colors text-sm sm:text-base"
                   >
                     View Details
                   </button>
                   <button
                     onClick={() => onBookRoom(room.name)}
-                    className="flex-1 bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded-lg font-medium transition-colors"
+                    className="flex-1 bg-amber-500 hover:bg-amber-600 text-white px-3 sm:px-4 py-2 rounded-lg font-medium transition-colors text-sm sm:text-base"
                   >
                     Book Now
                   </button>

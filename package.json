@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@react-google-maps/api": "^2.20.7",
     "gsap": "^3.13.0",
     "lucide-react": "^0.544.0",
     "react": "^19.0.0",

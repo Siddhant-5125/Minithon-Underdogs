@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, MapPin, Phone, Mail } from 'lucide-react';
 
-const Header = () => {
+const Header = ({ onLogout }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -58,7 +58,7 @@ const Header = () => {
               <h1 className={`text-2xl font-bold transition-colors duration-300 ${
                 isScrolled ? 'text-slate-800' : 'text-white'
               }`}>
-                Grand Venue
+                निवास
               </h1>
             </div>
 
@@ -89,6 +89,14 @@ const Header = () => {
                 Gallery
               </button>
               <button 
+                onClick={() => scrollToSection('maps')}
+                className={`font-medium transition-colors hover:text-amber-500 ${
+                  isScrolled ? 'text-slate-700' : 'text-white'
+                }`}
+              >
+                Maps
+              </button>
+              <button 
                 onClick={() => scrollToSection('testimonials')}
                 className={`font-medium transition-colors hover:text-amber-500 ${
                   isScrolled ? 'text-slate-700' : 'text-white'
@@ -99,6 +107,14 @@ const Header = () => {
               <button className="bg-amber-500 hover:bg-amber-600 text-white px-6 py-2 rounded-full font-medium transition-colors">
                 Book Now
               </button>
+              {onLogout && (
+                <button 
+                  onClick={onLogout}
+                  className="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-full font-medium transition-colors"
+                >
+                  Logout
+                </button>
+              )}
             </nav>
 
             {/* Mobile menu button */}
@@ -115,33 +131,57 @@ const Header = () => {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden bg-white border-t shadow-lg">
-            <nav className="container mx-auto px-4 py-4 space-y-3">
+          <div className="md:hidden bg-white border-t shadow-lg animate-fadeInDown">
+            <nav className="container mx-auto px-4 py-4 space-y-1">
               <button 
-                onClick={() => scrollToSection('home')}
-                className="block w-full text-left py-2 text-slate-700 hover:text-amber-500 transition-colors"
+                onClick={() => {
+                  scrollToSection('home');
+                  setIsMenuOpen(false);
+                }}
+                className="block w-full text-left py-3 px-2 text-slate-700 hover:text-amber-500 hover:bg-amber-50 rounded-lg transition-all duration-200 font-medium"
               >
                 Home
               </button>
               <button 
-                onClick={() => scrollToSection('rooms')}
-                className="block w-full text-left py-2 text-slate-700 hover:text-amber-500 transition-colors"
+                onClick={() => {
+                  scrollToSection('rooms');
+                  setIsMenuOpen(false);
+                }}
+                className="block w-full text-left py-3 px-2 text-slate-700 hover:text-amber-500 hover:bg-amber-50 rounded-lg transition-all duration-200 font-medium"
               >
                 Rooms
               </button>
               <button 
-                onClick={() => scrollToSection('gallery')}
-                className="block w-full text-left py-2 text-slate-700 hover:text-amber-500 transition-colors"
+                onClick={() => {
+                  scrollToSection('gallery');
+                  setIsMenuOpen(false);
+                }}
+                className="block w-full text-left py-3 px-2 text-slate-700 hover:text-amber-500 hover:bg-amber-50 rounded-lg transition-all duration-200 font-medium"
               >
                 Gallery
               </button>
               <button 
-                onClick={() => scrollToSection('testimonials')}
-                className="block w-full text-left py-2 text-slate-700 hover:text-amber-500 transition-colors"
+                onClick={() => {
+                  scrollToSection('maps');
+                  setIsMenuOpen(false);
+                }}
+                className="block w-full text-left py-3 px-2 text-slate-700 hover:text-amber-500 hover:bg-amber-50 rounded-lg transition-all duration-200 font-medium"
+              >
+                Maps
+              </button>
+              <button 
+                onClick={() => {
+                  scrollToSection('testimonials');
+                  setIsMenuOpen(false);
+                }}
+                className="block w-full text-left py-3 px-2 text-slate-700 hover:text-amber-500 hover:bg-amber-50 rounded-lg transition-all duration-200 font-medium"
               >
                 Reviews
               </button>
-              <button className="w-full bg-amber-500 hover:bg-amber-600 text-white py-2 rounded-lg font-medium transition-colors">
+              <button 
+                onClick={() => setIsMenuOpen(false)}
+                className="w-full bg-amber-500 hover:bg-amber-600 text-white py-3 rounded-lg font-medium transition-colors mt-3"
+              >
                 Book Now
               </button>
             </nav>
